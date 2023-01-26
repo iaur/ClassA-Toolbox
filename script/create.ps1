@@ -31,8 +31,11 @@ try{
             Write-Host "`n`n $($currentItemName):" -foregroundcolor Cyan
             $AssembledObj.$($currentItemName)
         }
-
-
+        if ($($AssembledObj.Members).length -gt 0) {
+            
+        }else{
+            Write-Host "No members found" -foregroundcolor Yellow
+        }
     }
 
     Write-Output "`n`n------------------END-------------------------"
