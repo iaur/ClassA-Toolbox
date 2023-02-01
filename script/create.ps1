@@ -4,6 +4,14 @@ try {
     $global:RootPath = split-path -parent $MyInvocation.MyCommand.Definition
     $json = Get-Content "$RootPath\config.json" -Raw | ConvertFrom-Json 
     $counter = 0 
+    #---init>gui-util
+        Add-Type -AssemblyName PresentationCore,PresentationFramework
+        $global:YesNoButton = [System.Windows.MessageBoxButton]::YesNo
+        $global:OKButton = [System.Windows.MessageBoxButton]::OK
+        $global:InfoIcon = [System.Windows.MessageBoxImage]::Information
+        $global:WarningIcon = [System.Windows.MessageBoxImage]::Warning
+        $global:ErrorIcon = [System.Windows.MessageBoxImage]::Error
+        $global:QButton = [System.Windows.MessageBoxImage]::Question
 
     function ClearCreateCSV {
         Remove-Item -Path "$RootPath\create.csv"
@@ -41,17 +49,17 @@ try {
             Write-Output "`n------------------OUTPUT($counter)-------------------------"
             Write-Host "CSV is empty (~_^)" -foregroundcolor Yellow
 
-            #popup
+            #popup method 2
             Write-Output "`n$(Get-Date -Format "HH:mm")[Debug]: Attempting to update [create.csv]"
-            $WScript = new-object -comobject wscript.shell
-            $WScriptPrompt = $WScript.popup("Empty CSV. Do you want to update [create.csv] file?",0,"PopUp Method 1",4)
+            $UpdateCSVResult = [System.Windows.MessageBox]::Show("Empty CSV. Do you want to update [create.csv] file?","PopUp Method 2",$YesNoButton,$QButton)
 
-            If ($WScriptPrompt -eq 6) {
+            If($UpdateCSVResult -eq "Yes")
+            {
                 Invoke-Item "$RootPath\create.csv"
                 Start-Sleep -s 15
                 CheckCreateCSV
             }else{
-                $WScript.popup("Attempting to gracefully exit the script.",0,"PopUp Method 1") | Out-Null
+                [System.Windows.MessageBox]::Show("Attempting to gracefully exit the script.","PopUp Method 2",$OKButton,$WarningIcon)
                 Get-Kill
             }
 
