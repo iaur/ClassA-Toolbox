@@ -40,8 +40,23 @@ try {
         }else{
             Write-Output "`n------------------OUTPUT($counter)-------------------------"
             Write-Host "CSV is empty (~_^)" -foregroundcolor Yellow
-            Get-Kill
+
+            #popup
+            Write-Output "`n$(Get-Date -Format "HH:mm")[Debug]: Attempting to update [create.csv]"
+            $WScript = new-object -comobject wscript.shell
+            $WScriptPrompt = $WScript.popup("Empty CSV. Do you want to update [create.csv] file?",0,"PopUp Method 1",4)
+
+            If ($WScriptPrompt -eq 6) {
+                Invoke-Item "$RootPath\create.csv"
+                Start-Sleep -s 15
+                CheckCreateCSV
+            }else{
+                $WScript.popup("Attempting to gracefully exit the script.",0,"PopUp Method 1") | Out-Null
+                Get-Kill
+            }
+
         }
+
     }
 
     Start-Transcript -Path "$RootPath\Create_localtime_$(Get-Date -Format "MMddyyyyHHmm").txt" | Out-Null
