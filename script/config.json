@@ -1,5 +1,14 @@
 {
     "AliasPrefix":  "GRS_",
     "DomainName":  "solutionautdev.onmicrosoft.com",
-    "DisplayNamePrefix":  "GRS "
+    "DisplayNamePrefix":  "GRS ",
+    "ToolName":  "MyToolbox",
+    "ToolVersion":  "v1.0.0",
+    "ToolUIBackColor":  "#e3e3e3",
+    "ToolUIBackColorDark":  "#C0C0C0",
+    "ToolUILabelColor":  "#FFFFFF",
+    "ToolUILabelColorDark":  "#000000",
+    "ToolUIBtnColor":  "#d30909",
+    "ToolShowTOA":  "True",
+    "ToolTOAText":  "The script provided hereunder is provided on an as is basis,without any warranties or representations express, implied or statutory; including, without limitation, warranties of quality, performance, noninfringement, merchantability or fitness for a particular purpose. Nor are there any warranties created by a course or dealing, course of performance or trade usage.By clicking [Start] you agreed to the statement mentioned above. Otherwise, terminate the PowerShell session asap."
 }
